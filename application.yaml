@@ -2,8 +2,11 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: argocd-application
-  namespace: ploffay-argocd-example
+  # Matches the namespace where ArgoCD is deployed
+  namespace: openshift-gitops
 spec:
+  # Matches the default ArgoCD project
+  # kubectl get appprojects.argoproj.io --all-namespaces -o yaml
   project: default
 
   source:
