@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-application
+  namespace: ploffay-argocd-example
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/pavolloffay/argocd-example.git
+    targetRevision: HEAD
+    path: app1
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ploffay-app1
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+
+    automated:
+      # override any manually applied changes
+      selfHeal: true
+      # delete objects if object is deleted from the manifest file
+      prune: true
